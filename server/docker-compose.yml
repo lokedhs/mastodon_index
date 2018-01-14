@@ -1,0 +1,20 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch
+    restart: unless-stopped
+    ports: ["9200:9200"]
+  kibana:
+    image: kibana
+    restart: unless-stopped
+    ports: ["5601:5601"]
+    links:
+      - elasticsearch
+  couchdb:
+    image: couchdb
+    restart: unless-stopped
+    ports: ["5984:5984"]
+    volumes:
+      - couchdb-volume:/opt/couchdb/data
+volumes:
+  couchdb-volume:
